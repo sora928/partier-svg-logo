@@ -1,0 +1,25 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;   /* 横中央 */
+  align-items: center;       /* 縦中央 */
+  background: #fff;
+  overflow: auto;
+  min-height: 100vh;
+}
+svg {
+  background: #fff;
+  user-select: none;
+  display: block;
+  max-width: 90vw;  /* 画面幅からはみ出さないように */
+  max-height: 70vh; /* 画面高からはみ出さないように */
+}
+.draggable { cursor: grab; }
+.anchor { fill: yellow; pointer-events: none; }
+line { stroke: black; stroke-width: 1.75; }
