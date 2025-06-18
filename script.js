@@ -38,6 +38,7 @@ function updateLines() {
   });
 }
 
+// --- PC用 ---
 function onMouseMove(e) {
   if (!selected) return;
   const pt = svg.createSVGPoint();
@@ -67,10 +68,53 @@ function onMouseDown(e) {
 
 function onMouseUp() {
   document.removeEventListener("mousemove", onMouseMove);
+  document.removeEventListener("touchmove", onTouchMove); // ← touch解除もここで
   selected = null;
 }
 
+// --- スマホ用 ---
+function onTouchMove(e) {
+  if (!selected) return;
+  e.preventDefault();
+  const touch = e.touches[0];
+  const pt = svg.createSVGPoint();
+  pt.x = touch.clientX;
+  pt.y = touch.clientY;
+  const cursorpt = pt.matrixTransform(svg.getScreenCTM().inverse());
+  selected.setAttribute(
+    "transform",
+    `translate(${cursorpt.x - offset.x},${cursorpt.y - offset.y})`
+  );
+  updateLines();
+}
+
+function onTouchStart(e) {
+  if (e.target.closest(".draggable")) {
+    selected = e.target.closest(".draggable");
+    const pos = getTransformXY(selected);
+    const touch = e.touches[0];
+    const pt = svg.createSVGPoint();
+    pt.x = touch.clientX;
+    pt.y = touch.clientY;
+    const cursorpt = pt.matrixTransform(svg.getScreenCTM().inverse());
+    offset.x = cursorpt.x - pos.x;
+    offset.y = cursorpt.y - pos.y;
+    document.addEventListener("touchmove", onTouchMove, {passive: false});
+  }
+}
+
+function onTouchEnd() {
+  document.removeEventListener("touchmove", onTouchMove);
+  selected = null;
+}
+
+// --- イベント登録 ---
 svg.addEventListener("mousedown", onMouseDown);
 document.addEventListener("mouseup", onMouseUp);
 document.addEventListener("mouseleave", onMouseUp);
+
+svg.addEventListener("touchstart", onTouchStart, {passive: false});
+document.addEventListener("touchend", onTouchEnd);
+document.addEventListener("touchcancel", onTouchEnd);
+
 updateLines();
