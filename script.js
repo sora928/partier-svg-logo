@@ -130,7 +130,7 @@ window.addEventListener("DOMContentLoaded", () => {
       if (!start) start = ts;
       const t = ts - start;
       // 振幅と速さを調整
-      const amp = 5; // 揺れ幅px
+      const amp = 10; // 揺れ幅px
       const freq = 3; // 1秒あたりの揺れ回数
       const y = pOriginal.y + Math.sin((t / 1000) * freq * Math.PI * 2) * amp * (1 - t / duration); // だんだん収束
       p.setAttribute("transform", `translate(${pOriginal.x},${y})`);
