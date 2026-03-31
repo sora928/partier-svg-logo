@@ -125,12 +125,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const pOriginal = getTransformXY(p);
   setTimeout(() => {
     let start = null;
-    const duration = 600; // 0.6秒くらい
+    const duration = 900; // 0.9秒くらい
     function vibrate(ts) {
       if (!start) start = ts;
       const t = ts - start;
       // 振幅と速さを調整
-      const amp = 10; // 揺れ幅px
+      const amp = 15; // 揺れ幅px
       const freq = 3; // 1秒あたりの揺れ回数
       const y = pOriginal.y + Math.sin((t / 1000) * freq * Math.PI * 2) * amp * (1 - t / duration); // だんだん収束
       p.setAttribute("transform", `translate(${pOriginal.x},${y})`);
