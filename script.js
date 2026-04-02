@@ -167,7 +167,7 @@ window.addEventListener("DOMContentLoaded", () => {
         updateLines();
 
         // 揺れ終わってから10秒後にもう一度
-        setTimeout(runVibration, 10000);
+        setTimeout(runVibration, 5000);
       }
     }
 
