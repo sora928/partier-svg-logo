@@ -166,8 +166,8 @@ window.addEventListener("DOMContentLoaded", () => {
         p.setAttribute("transform", `translate(${pOriginal.x},${pOriginal.y})`);
         updateLines();
 
-        // 揺れ終わってから10秒後にもう一度
-        setTimeout(runVibration, 5000);
+        // 揺れ終わってから2秒後にもう一度
+        setTimeout(runVibration, 2000);
       }
     }
 
